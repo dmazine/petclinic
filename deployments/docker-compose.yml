@@ -1,0 +1,24 @@
+services:
+  web:
+    build:
+      context: ..
+      dockerfile: ./build/Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mysql
+  mysql:
+    image: "mysql:latest"
+    ports:
+      - "3306:3306"
+      - "33060:33060"
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=petclinic
+      - MYSQL_USER=petclinic
+      - MYSQL_PASSWORD=petclinic
+    volumes:
+      - mysql-petclinic:/var/lib/mysql
+
+volumes:
+  mysql-petclinic:
